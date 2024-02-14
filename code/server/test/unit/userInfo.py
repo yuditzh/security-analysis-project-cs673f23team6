@@ -3,7 +3,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from .account.models import CustomUser
+from account.models import CustomUser
 
 from constants import USER_INFO_API_URL
 
