@@ -26,8 +26,8 @@ const Login = ({ onClose }) => {
       }
       const resData = res.data;
       setLoading(false);
-      localStorage.setItem('token', resData.token);
-      localStorage.setItem('user', JSON.stringify(resData.user));
+      localStorage.setItem('token', resData.access);
+      localStorage.setItem('user', JSON.stringify(data.email));
       onClose();
       // window.location.reload();
       navigate('/marketplace');

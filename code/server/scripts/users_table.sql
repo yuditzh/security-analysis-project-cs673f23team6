@@ -1,5 +1,4 @@
-create table
-  public.users (
+create table users (
     id uuid not null default gen_random_uuid (),
     created_at timestamp with time zone not null default now(),
     email character varying not null,

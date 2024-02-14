@@ -62,5 +62,5 @@
    ```
 7. Run the server
    ```bash
-   python manage.py run-server
+   python manage.py runserver
    ```

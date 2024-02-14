@@ -1,4 +1,5 @@
 from rest_framework import serializers, generics
+from django.contrib.auth.password_validation import validate_password
 from account.models import CustomUser
 
 from rest_framework.permissions import IsAuthenticated
@@ -20,7 +21,7 @@ class UserAccountSerializer(serializers.ModelSerializer):
         return user
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, validators=[validated_password])
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
     old_password = serializers.CharField(write_only=True, required=True)
 
