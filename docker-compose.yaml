@@ -1,0 +1,18 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+  college-st-backend:
+    image: college-st-backend:latest
+    environment:
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+  college-st-frontend:
+    image: college-st-frontend:latest
+    environment:
+      PORT: 3000
+      PROXY_API: http://localhost:8080/
+    ports:
+      - 3000:3000

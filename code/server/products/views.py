@@ -12,6 +12,7 @@ class ProductPostAPIView(generics.CreateAPIView):
 	permissions_classes = (IsAuthenticated,)
 
 	def post(self, serializer):
+		print(type(serializer))
 		serializer.save(user_id=self.request.user.id)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -24,6 +25,7 @@ class GetAllProductsAPIView(generics.ListAPIView):
 	permission_classes = (IsAuthenticated)
 
 	def get(self, products):
+		print("all products")
 		return Response(products, status=status.HTTP_200_OK)
 	
 class GetProductByIdAPIView(generics.RetrieveAPIView):
