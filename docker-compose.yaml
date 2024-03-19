@@ -1,12 +1,22 @@
-version: '3'
+version: '3.9'
 services:
   postgres:
+    container_name: college-st-db
     image: postgres:latest
+    environment:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
   college-st-backend:
     image: college-st-backend:latest
-    environment:
     ports:
       - 8000:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    build: 
+      dockerfile: ./code/server/Dockerfile
     depends_on:
       - postgres
   college-st-frontend:
@@ -16,3 +26,8 @@ services:
       PROXY_API: http://localhost:8080/
     ports:
       - 3000:3000
+    build: 
+      dockerfile: ./code/web-app/Dockerfile
+volumes:
+  db:
+    driver: local
