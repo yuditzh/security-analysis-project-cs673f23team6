@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # Django Apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sessions',
 
     # Third-Party Apps
     'rest_framework',
@@ -33,7 +34,6 @@ INSTALLED_APPS = [
     'allauth',
     "dj_rest_auth",
     "dj_rest_auth.registration",
-
 
     # Local Apps (project's apps)
     'account',
@@ -74,12 +74,12 @@ SITE_ID = 1
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("SUPABASE_DB_NAME"),
         'HOST' : os.environ.get('SUPABASE_DB_HOST'),
         'PASSWORD': os.environ.get('SUPABASE_DB_PASS'),
         'PORT': os.environ.get('SUPABASE_DB_PORT'),
-        'USER': 'postgres',
+        'USER': os.environ.get("SUPABASE_DB_USER"),
         'CERT' : 'config.prod-ca-2021.crt',
     }
 }
@@ -130,3 +130,16 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'user_id'
+}
+
+# email configs
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = str(os.getenv('EMAIL_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_PASSWORD'))
+PASSWORD_RESET_TIMEOUT = 1800
