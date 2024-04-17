@@ -1,5 +1,10 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.dispatch import receiver
+from django.urls import reverse
+from django.core.mail import send_mail, EmailMessage
+
 
 class UserProfileManager(BaseUserManager):
 	use_in_migration = True
@@ -14,10 +19,10 @@ class UserProfileManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-	username = None
+	user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=100)
 	email = models.EmailField(max_length=255, unique=True)
-	is_active = models.BooleanField(default=False)
+	is_active = models.BooleanField(default=True)
 	date_joined = models.DateTimeField(auto_now_add=True)
 	last_login = models.TimeField(auto_now=True)
 	objects = UserProfileManager()

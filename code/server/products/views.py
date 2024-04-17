@@ -11,25 +11,31 @@ class ProductPostAPIView(generics.CreateAPIView):
 	serializer_class = ProductSerializer
 	permissions_classes = (IsAuthenticated,)
 
-	def post(self, serializer):
-		print(type(serializer))
-		serializer.save(user_id=self.request.user.id)
+	def post(self, request):
+		serializer = ProductSerializer(data=request.data, many=False)
+		try:
+			serializer.is_valid(raise_exception=True)
+
+		except Exception as e:
+			print(e)
+		serializer.save()
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	def get(self, queryset):
 		return Response(queryset, status=status.HTTP_200_OK)
 
 class GetAllProductsAPIView(generics.ListAPIView):
-	products = Product.objects.all()
+	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
-	permission_classes = (IsAuthenticated)
+	permission_classes = (IsAuthenticated, )
 
 	def get(self, products):
-		print("all products")
-		return Response(products, status=status.HTTP_200_OK)
+		queryset = self.get_queryset()
+		serializer = ProductSerializer(queryset, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 class GetProductByIdAPIView(generics.RetrieveAPIView):
-	permission_classes = (IsAuthenticated)
+	permission_classes = (IsAuthenticated, )
 	serializer_class = ProductSerializer
 
 	def get(self, pd_id, user_id):

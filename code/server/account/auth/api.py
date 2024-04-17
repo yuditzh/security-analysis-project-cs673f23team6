@@ -24,7 +24,7 @@ class RegisterAccountView(APIView):
 
 
 class ChangePasswordView(generics.UpdateAPIView):
-    serializer_class = (IsAuthenticated)
+    serializer_class = (IsAuthenticated, )
     model = CustomUser
     serializer_class = ChangePasswordSerializer
 
@@ -40,4 +40,3 @@ class ChangePasswordView(generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-

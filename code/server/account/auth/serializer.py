@@ -20,6 +20,19 @@ class UserAccountSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["user_id", "name", "email"]
+
+    def create(self, validated_data):
+        user = CustomUser.objects.create(
+            user_id=validated_data["user_id"],
+            email=validated_data["email"],
+            name=validated_data["name"],
+        )
+        return user
+
 class ChangePasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)

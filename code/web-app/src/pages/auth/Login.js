@@ -159,17 +159,22 @@ const Login = ({ onClose }) => {
               )}
             </button>
             <div className="w-full pt-2 border-t border-black ">
-              <button
+              {/* <button
                 className="justify-end float-right pb-4 -mr-2"
                 type="reset"
                 onClick={() => {
-                  // TODO: navigate to forgot password page
+                  navigate("/forgot-password")
                 }}
               >
                 <span className="text-sm text-primary hover:text-[#9155FD]">
-                  Forgot password ?
+                <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
                 </span>
-              </button>
+              </button> */}
+              <span className="text-sm text-primary hover:text-[#9155FD]">
+                <a href="http://127.0.0.1:8000/api/users/password-reset"
+                target="_blank"
+                rel="noopener noreferrer"><i>Forgot Password?</i></a>
+                </span>
             </div>
           </form>
         </div>

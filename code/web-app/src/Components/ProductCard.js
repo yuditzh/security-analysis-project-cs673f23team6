@@ -5,13 +5,13 @@ export default function ProductCard({ product }) {
   return (
     <div className="h-full overflow-hidden rounded-lg cursor-pointer group hover:shadow">
       <div className="w-full h-full">
-        <Link to={`/product/${product?.id}`}>
+        {/* <Link to={`/product/${product?.id}`}>
           <img
             alt={product?.title}
             src={product?.images[0]}
             className="object-cover w-full transition duration-150 ease-in-out max-h-72 group-hover:scale-105 "
           />
-        </Link>
+        </Link> */}
         <div className="w-full h-full p-4 bg-white">
           <p className="text-2xl font-medium text-gray-600 break-words">
             <Link to={`/product/${product?.id}`}>{product?.title}</Link>

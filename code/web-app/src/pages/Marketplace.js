@@ -14,6 +14,18 @@ export default function Marketplace() {
     if (!token) {
       navigate('/');
     }
+    
+    const fetchAllProducts = async () => {
+      setLoading(true);
+      const res = await axios.get(
+        "api/products/all", {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      console.log(res)
+      setProducts(res.data)
+      setLoading(false)
+    }
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -33,7 +45,7 @@ export default function Marketplace() {
         setLoading(false);
       }
     };
-    fetchProducts();
+    fetchAllProducts();
   }, [window.location.search]);
 
   return (
