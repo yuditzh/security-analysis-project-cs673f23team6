@@ -1,5 +1,6 @@
 import Logo from '../Assets/Logo.png';
 import { useRef, useEffect, useState, Fragment } from 'react';
+import axios from 'axios';
 import Login from '../pages/auth/Login';
 import {
   Modal,
@@ -49,7 +50,7 @@ const LoginPopup = ({ isOpen, onOpenChange }) => (
   </Modal>
 );
 
-const ProductPopup = ({ isOpen, onOpenChange }) => (
+const ProductPopup = ({ isOpen, onOpenChange, userId }) => (
   <Modal
     size="3xl"
     isOpen={isOpen}
@@ -65,7 +66,7 @@ const ProductPopup = ({ isOpen, onOpenChange }) => (
             </h1>
           </ModalHeader>
           <ModalBody className="w-full">
-            <AddProductForm onClose={onClose} />
+            <AddProductForm onClose={onClose} userId={userId}/>
           </ModalBody>
         </>
       )}
@@ -420,6 +421,7 @@ function Searchbar() {
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState([])
   const navigate = useNavigate();
   const userRef = useRef(null);
   const {
@@ -461,10 +463,20 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
+    
+    const fetchUserInfo = async () => {
+      const res = await axios.get('/api/users/user', {
+        headers: { Authorization: `Bearer ${token}` }
+      }).catch(err => console.error(err));;
 
+      const resData = res.data;
+      setUserId(resData.user_id);
+      console.log(resData)
+    }
     if (token && user) {
       setUser(JSON.parse(user));
       userRef.current = JSON.parse(user);
+      fetchUserInfo()
     }
   }, [setUser, userRef, localStorage.getItem('user')]);
   return (
@@ -518,6 +530,7 @@ const Navbar = () => {
         <ProductPopup
           isOpen={isProductOpen}
           onOpenChange={onProductOpenChange}
+          userId={userId}
         />
         <ContactPopup isOpen={iscontactOpen} onOpenChange={oncontactOpenChange} />
         <AboutPopup isOpen={isaboutOpen} onOpenChange={onaboutOpenChange} />

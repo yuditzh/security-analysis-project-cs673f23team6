@@ -9,26 +9,29 @@ import {
   SelectItem,
 } from '@nextui-org/react';
 import { categories, location } from '../utils';
-const AddProductForm = ({ onClose }) => {
+const AddProductForm = ({ onClose, userId }) => {
   const [loading, setLoading] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
+    user: userId,
     title: JSON.parse(localStorage.getItem('productData'))?.title || '',
     description:
       JSON.parse(localStorage.getItem('productData'))?.description || '',
     price: JSON.parse(localStorage.getItem('productData'))?.price || '',
-    images: JSON.parse(localStorage.getItem('productData'))?.images || [],
-    authorId: JSON.parse(localStorage.getItem('user'))?.id,
+    img: JSON.parse(localStorage.getItem('productData'))?.images || '',
     location: JSON.parse(localStorage.getItem('productData'))?.location || '',
     category: JSON.parse(localStorage.getItem('productData'))?.category || '',
   });
   const handleSubmit = async (e) => {
+    console.log(data)
     try {
+      
       setLoading(true);
       await fetch('/api/products/create', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem("token")}`},
         body: JSON.stringify(data),
       });
       setLoading(false);
