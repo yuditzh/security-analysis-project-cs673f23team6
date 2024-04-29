@@ -1,33 +1,37 @@
 version: '3.9'
 services:
-  postgres:
-    container_name: college-st-db
-    image: postgres:latest
-    environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
-    ports:
-      - 5432:5432
-    volumes: 
-      - db:/var/lib/postgresql/data
-  college-st-backend:
+  backend:
     image: college-st-backend:latest
+    environment:
+      DJANGO_SECRET_KEY:
+      SUPABASE_DB_USER:
+      SUPABASE_DB_PASS:
+      SUPABASE_DB_HOST:
+      SUPABASE_DB_PORT:
+      SUPABASE_DB_NAME:
+      EMAIL_USER:
+      EMAIL_PASSWORD:
     ports:
       - 8000:8000
+    networks: 
+      - app-test
     command: python manage.py runserver 0.0.0.0:8000
     build: 
       dockerfile: ./code/server/Dockerfile
-    depends_on:
-      - postgres
-  college-st-frontend:
+  frontend:
     image: college-st-frontend:latest
     environment:
       PORT: 3000
-      PROXY_API: http://localhost:8080/
+      PROXY_API: http://college-st-backend:8000/
     ports:
       - 3000:3000
+    networks: 
+      - app-test
     build: 
       dockerfile: ./code/web-app/Dockerfile
 volumes:
   db:
     driver: local
+networks:
+    app-test:
+        driver: bridge
