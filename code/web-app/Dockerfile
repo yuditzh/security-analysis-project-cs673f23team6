@@ -12,7 +12,7 @@ WORKDIR /opt/app
 COPY package*.json ./
 
 # Copy or project directory (locally) in the current directory of our docker image (/app)
-COPY ./ ./
+COPY ./code/web-app/ ./
 
 # Install node packages
 RUN npm install
@@ -25,13 +25,13 @@ RUN npm run build
 EXPOSE 3000
 
 # Set host to localhost / the docker image
-# ENV NUXT_HOST=0.0.0.0
+ENV NUXT_HOST=0.0.0.0
 
 # Set app port
-# ENV NUXT_PORT=3000
+ENV NUXT_PORT=3000
 
 # Set the base url
-# ENV PROXY_API=$PROXY_API
+ENV PROXY_API=$PROXY_API
 
 # Set the browser base url
 # ENV PROXY_LOGIN=$PROXY_LOGIN
