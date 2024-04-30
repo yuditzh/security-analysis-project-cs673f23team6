@@ -27,3 +27,4 @@ django-csp
 werkzeug==3.0.2
 django-extensions==3.2.3
 pyOpenSSL==24.1.0
+django-axes==6.4.0

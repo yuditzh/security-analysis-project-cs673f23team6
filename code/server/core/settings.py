@@ -35,14 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django_extensions',
-
+    
     # Third-Party Apps
     'rest_framework',
     'rest_framework.authtoken',
     'allauth',
+    'django_extensions',
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    'axes',
 
     # Local Apps (project's apps)
     'account',
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware'
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -158,3 +160,13 @@ PASSWORD_RESET_TIMEOUT = 1800
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+# Rate Limit Failed Attemps
+AUTHENTICATION_BACKENDS = [
+   'axes.backends.AxesBackend', # Axes must be first
+   'django.contrib.auth.backends.ModelBackend',
+]
+
+AXES_FAILURE_LIMIT: 3
+AXES_COOLOFF_TIME: 0.5
+AXES_RESET_ON_SUCCESS = True
