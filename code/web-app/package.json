@@ -17,10 +17,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-https": "HTTPS=true SSL_CRT_FILE=./cert.crt SSL_KEY_FILE=./cert.key react-scripts start --host localhost",
     "start": "react-scripts start --host localhost",
     "build": "react-scripts build"
   },
-  "proxy": "http://backend:8000",
+  "proxy": "https://backend:8000",
   "eslintConfig": {
     "extends": [
       "react-app"

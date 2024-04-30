@@ -13,6 +13,8 @@ COPY package*.json ./
 
 # Copy or project directory (locally) in the current directory of our docker image (/app)
 COPY ./code/web-app/ ./
+COPY ./cert.crt ./
+COPY ./cert.key ./
 
 # Install node packages
 RUN npm install
@@ -37,4 +39,4 @@ ENV PROXY_API=$PROXY_API
 # ENV PROXY_LOGIN=$PROXY_LOGIN
 
 # Start the app
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start-https"]

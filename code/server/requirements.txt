@@ -24,3 +24,6 @@ sqlparse~=0.5.0
 typing_extensions==4.8.0
 urllib3==2.0.7
 django-csp
+werkzeug==3.0.2
+django-extensions==3.2.3
+pyOpenSSL==24.1.0

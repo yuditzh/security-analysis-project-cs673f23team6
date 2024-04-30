@@ -15,7 +15,7 @@ services:
       - 8000:8000
     networks: 
       - app-test
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver_plus --key-file ./cert.key --cert-file ./cert.crt 0.0.0.0:8000
     build: 
       dockerfile: ./code/server/Dockerfile
   frontend:

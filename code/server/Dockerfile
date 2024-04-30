@@ -20,4 +20,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD python manage.py runserver_plus --key-file ./cert.key --cert-file ./cert.crt 0.0.0.0:8000
