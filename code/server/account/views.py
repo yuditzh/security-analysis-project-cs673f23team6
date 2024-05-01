@@ -53,4 +53,4 @@ class ForgotPasswordView(SuccessMessageMixin, PasswordResetView):
 						"if an account exists with the email you entered. You should receive them shortly." \
 						" If you don't receive an email, " \
 						"please make sure you've entered the address you registered with, and check your spam folder."
-	success_url = "http://localhost:3000/"
+	success_url = "https://localhost:3000/"

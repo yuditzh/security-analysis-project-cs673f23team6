@@ -171,7 +171,7 @@ const Login = ({ onClose }) => {
                 </span>
               </button> */}
               <span className="text-sm text-primary hover:text-[#9155FD]">
-                <a href="http://127.0.0.1:8000/api/users/password-reset"
+                <a href="https://127.0.0.1:8000/api/users/password-reset"
                 target="_blank"
                 rel="noopener noreferrer"><i>Forgot Password?</i></a>
                 </span>
